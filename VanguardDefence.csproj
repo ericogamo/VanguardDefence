@@ -72,7 +72,7 @@
 
   <Target Name="InstallIntoGame" AfterTargets="Build" Condition="'$(Configuration)' == 'Release' And Exists('$(GameDir)\BepInEx\plugins')">
     <ItemGroup>
-      <VanguardAssets Include="$(OutDir)Assets\**\*.*" />
+      <VanguardAssets Include="$(MSBuildProjectDirectory)\Assets\**\*.*" />
     </ItemGroup>
     <MakeDir Directories="$(PluginInstallDir)" />
     <Copy SourceFiles="$(OutDir)$(AssemblyName).dll" DestinationFolder="$(PluginInstallDir)" SkipUnchangedFiles="true" />
