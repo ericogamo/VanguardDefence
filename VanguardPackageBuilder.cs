@@ -16,6 +16,7 @@ namespace VanguardDefence
         internal const string SeaWraithSurfMissileId = "vgd_seawraith_surf";
         internal const string SeaWraithContainerUnitId = "vgd_seawraith_container";
         internal const string SeaWraithHemttUnitId = "vgd_seawraith_hemtt";
+        internal const string Hx3IsoCarrierUnitId = "vgd_hx3_iso_carrier";
 
         internal static ContractorPackage Build(string pluginDirectory, out string assetSummary)
         {
@@ -506,9 +507,6 @@ namespace VanguardDefence
                 DebrisKitGlbRelativePath = "skyshield_debris_kit.glb",
                 DestroyAnimationDurationSeconds = 2.5f,
                 DestructionDebrisCount = 6,
-                ContainerLengthMeters = 8.200f,
-                ContainerWidthMeters = 2.850f,
-                ContainerHeightMeters = 2.896f,
                 FallbackMeshArchetype = "container",
                 DecalRelativePath = "branding/vanguard_container_stencil.png",
                 PrimaryMissileId = SkyLanceLrSamMissileId,
@@ -650,7 +648,7 @@ namespace VanguardDefence
                 }
             });
 
-            // 8. SeaWraith 20ft ISO Stealth NSM Coastal Container (Autonomous ASuW, Airdrop + Flatbed + Build)
+            // 8. SeaWraith 20ft ISO 6-Missile Elevating-Roof NSM Container (Autonomous ASuW, Airdrop + Flatbed + Build)
             package.AddUnit(new ModularUnitSpec
             {
                 UnitId = SeaWraithContainerUnitId,
@@ -665,8 +663,8 @@ namespace VanguardDefence
                 FallbackMeshArchetype = "container",
                 DecalRelativePath = "branding/vanguard_seawraith_decal.png",
                 PrimaryMissileId = SeaWraithSurfMissileId,
-                PrimaryMagazineCapacity = 4,
-                MagazineCapacity = 4,
+                PrimaryMagazineCapacity = 6,
+                MagazineCapacity = 6,
                 FireCooldownSeconds = 3.2f,
                 LaunchAlongSocketForward = true,
                 VerticalLaunch = false,
@@ -754,6 +752,54 @@ namespace VanguardDefence
                 }
             });
 
+            // 10. MAN HX3 8x8 ISO Container Carrier (Unarmed Logistics Flatbed Hauler)
+            package.AddUnit(new ModularUnitSpec
+            {
+                UnitId = Hx3IsoCarrierUnitId,
+                DisplayName = "HX3 8x8 ISO Flatbed",
+                Role = WeaponCascadeRole.LogisticsHauler,
+                BaseDefinitionCloneKey = "HLT-L",
+                GlbRelativePath = "vgd_hx3_iso_carrier.glb",
+                DestroyedGlbRelativePath = "vgd_hx3_iso_carrier_wreck.glb",
+                DebrisKitGlbRelativePath = "skyshield_debris_kit.glb",
+                DestroyAnimationDurationSeconds = 2.5f,
+                DestructionDebrisCount = 6,
+                FallbackMeshArchetype = "container",
+                DecalRelativePath = "branding/vanguard_vehicle_side_decal.png",
+                IsMobileVehicle = true,
+                IsContainerHauler = true,
+                WheelRadiusMeters = 0.670f,
+                CargoDeckHeightMeters = 1.715f,
+                CargoDeckOffsetZMeters = -2.100f,
+                RequiresFcuLink = false,
+                MagazineCapacity = 0,
+                PrimaryMagazineCapacity = 0,
+                StowedRcs = 0.25f,
+                DeployedRcs = 0.35f,
+                DeployDurationSeconds = 2.0f,
+                ModelYawOffsetDeg = 0f,
+                SensorProfile = new EccmSensorProfile
+                {
+                    IsFireControlUnit = false,
+                    SupportedBands = System.Array.Empty<SensorBand>(),
+                    JamTolerance = 0.5f,
+                    EoIrEmergencyRangeKm = 0f,
+                    DetectionRangeKm = 0f
+                },
+                Logistics = new DeploymentLogisticsSpec
+                {
+                    RequiredTechTier = 1,
+                    CreditCost = 140f,
+                    CapCategory = "Ground",
+                    CapWeight = 1,
+                    EngineerBuildSeconds = 12f,
+                    SupportsTarantulaSlingKit = false,
+                    SlingKitMassKg = 0f,
+                    SupportsAircraftAirdrop = false,
+                    AirdropAltitudeMeters = 0f
+                }
+            });
+
             var reportItems = new List<(string, string, string[])>();
             for (int i = 0; i < package.Units.Count; i++)
             {
@@ -811,7 +857,8 @@ namespace VanguardDefence
                 else if (unit.UnitId != "vgd_skyshield_35mm" &&
                          unit.UnitId != LeitstandUnitId &&
                          unit.UnitId != SeaWraithContainerUnitId &&
-                         unit.UnitId != SeaWraithHemttUnitId)
+                         unit.UnitId != SeaWraithHemttUnitId &&
+                         unit.UnitId != Hx3IsoCarrierUnitId)
                 {
                     unit.SensorProfile.JamTolerance = jamTol;
                 }

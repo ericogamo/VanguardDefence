@@ -1,10 +1,12 @@
 # VanguardDefence (Skyshield & SeaWraith Contractor Pack)
 
 Contractor pack mod for **Nuclear Option** built on [`MDSFramework`](https://github.com/ericogamo/MDSFramework):
+- **Unified 20ft DIN ISO 668 HX3 Stealth Camo Containers**: standardized ISO shell, corner castings, placards, and compacted 20ft **Skyshield Long SAM (Type A)**
 - **Skyshield AESA FCU** & **Skyshield Leitstand (C2 Net)**
 - **Skyshield HEL Laser**, **Skyshield 35mm AHEAD CIWS**, **Skyshield Short SAM (Type C)**, **Skyshield Long SAM (Type A)**
 - **Skyshield VLS** (4x `ECCM-Hunter` + 4x `SkyLance LR-SAM`) + blind Passive Home-on-Jam (HoJ) response
-- **SeaWraith NSM** Coastal Anti-Ship Container & HLT-8x8
+- **SeaWraith NSM** 6-Missile Elevating-Roof Container & HLT-8x8
+- **MAN HX3 8x8 ISO Container Carrier** (drivable logistics hauler for 20ft ISO weapon modules)
 
 ## Prerequisites
 - **Nuclear Option** with **BepInEx 5**
