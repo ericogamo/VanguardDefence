@@ -1,0 +1,10 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <rect width="1000" height="1000" fill="#0D1015"/>
+  <rect x="44" y="44" width="912" height="912" fill="none" stroke="#22BFE6" stroke-opacity="0.16" stroke-width="2"/>
+  <polygon points="299,66,179,58 335,01,179,58 468,37,424,58 468,37,489,54" fill="#F2F4F8"/>
+  <polygon points="472,09,530,03 645,203,29 680,08,221,85 472,09,614,89" fill="#F2F4F8"/>
+  <polygon points="651,96,190,13 704,9,132,53 687,05,208,7" fill="#22BFE6"/>
+  <text x="500" y="745" text-anchor="middle" fill="#F2F4F8" font-family="Bahnschrift, Segoe UI, Arial, sans-serif" font-weight="700" font-size="108" letter-spacing="18">VANGUARD</text>
+  <line x1="210" y1="782" x2="790" y2="782" stroke="#22BFE6" stroke-opacity="0.45" stroke-width="2.5"/>
+  <text x="500" y="836" text-anchor="middle" fill="#22BFE6" font-family="Bahnschrift, Segoe UI, Arial, sans-serif" font-weight="700" font-size="40" letter-spacing="20">DEFENCE</text>
+</svg>

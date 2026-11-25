@@ -1,0 +1,97 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <AssemblyName>VanguardDefence</AssemblyName>
+    <RootNamespace>VanguardDefence</RootNamespace>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <InformationalVersion>0.1.0</InformationalVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableSourceLink>false</EnableSourceLink>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GameDir Condition="'$(GameDir)' == ''">$(NUCLEAR_OPTION_DIR)</GameDir>
+    <GameDir Condition="'$(GameDir)' == ''">D:\SteamLibrary\steamapps\common\Nuclear Option</GameDir>
+    <PluginInstallDir>$(GameDir)\BepInEx\plugins\VanguardDefence</PluginInstallDir>
+    <MdsFrameworkDll>$(GameDir)\BepInEx\plugins\MDSFramework\MDSFramework.dll</MdsFrameworkDll>
+  </PropertyGroup>
+
+  <Target Name="ValidateGameDirectory" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(GameDir)\BepInEx\core\BepInEx.dll')" Text="Nuclear Option / BepInEx not found at '$(GameDir)'. Set GameDir or NUCLEAR_OPTION_DIR." />
+  </Target>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies.net472" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('..\MDS Framework\MDSFramework.csproj')">
+    <ProjectReference Include="..\MDS Framework\MDSFramework.csproj">
+      <Private>false</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="!Exists('..\MDS Framework\MDSFramework.csproj')">
+    <Reference Include="MDSFramework">
+      <HintPath>$(MdsFrameworkDll)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="SyncSkyshieldAssets" BeforeTargets="AssignTargetPaths" Condition="Exists('..\Models_Skyshield')">
+    <ItemGroup>
+      <SkyshieldGlbs Include="..\Models_Skyshield\*.glb" />
+      <SkyshieldBranding Include="..\Models_Skyshield\branding\*" />
+      <SkyshieldAudio Include="..\Models_Skyshield\audio\*" />
+      <SkyshieldIcons Include="..\Models_Skyshield\icons\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(MSBuildProjectDirectory)\Assets" />
+    <Copy SourceFiles="@(SkyshieldGlbs)" DestinationFolder="$(MSBuildProjectDirectory)\Assets" SkipUnchangedFiles="true" Condition="'@(SkyshieldGlbs)' != ''" />
+    <Copy SourceFiles="@(SkyshieldBranding)" DestinationFolder="$(MSBuildProjectDirectory)\Assets\branding" SkipUnchangedFiles="true" Condition="'@(SkyshieldBranding)' != ''" />
+    <Copy SourceFiles="@(SkyshieldAudio)" DestinationFolder="$(MSBuildProjectDirectory)\Assets\audio" SkipUnchangedFiles="true" Condition="'@(SkyshieldAudio)' != ''" />
+    <Copy SourceFiles="@(SkyshieldIcons)" DestinationFolder="$(MSBuildProjectDirectory)\Assets\icons" SkipUnchangedFiles="true" Condition="'@(SkyshieldIcons)' != ''" />
+  </Target>
+
+  <ItemGroup>
+    <Content Include="Assets\**\*.*" Condition="Exists('Assets')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <Target Name="StageDistDll" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+    <MakeDir Directories="$(MSBuildProjectDirectory)\dist" />
+    <Copy SourceFiles="$(OutDir)$(AssemblyName).dll" DestinationFolder="$(MSBuildProjectDirectory)\dist" SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="InstallIntoGame" AfterTargets="Build" Condition="'$(Configuration)' == 'Release' And Exists('$(GameDir)\BepInEx\plugins')">
+    <ItemGroup>
+      <VanguardAssets Include="$(OutDir)Assets\**\*.*" />
+    </ItemGroup>
+    <MakeDir Directories="$(PluginInstallDir)" />
+    <Copy SourceFiles="$(OutDir)$(AssemblyName).dll" DestinationFolder="$(PluginInstallDir)" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(VanguardAssets)" DestinationFiles="@(VanguardAssets->'$(PluginInstallDir)\Assets\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" Condition="'@(VanguardAssets)' != ''" />
+    <Message Importance="high" Text="Installed $(AssemblyName) into $(PluginInstallDir)" />
+  </Target>
+
+  <ItemGroup>
+    <Reference Include="BepInEx">
+      <HintPath>$(GameDir)\BepInEx\core\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(GameDir)\NuclearOption_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameDir)\NuclearOption_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>
