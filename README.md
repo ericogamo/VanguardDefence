@@ -3,7 +3,7 @@
 Contractor pack mod for **Nuclear Option** built on [`MDSFramework`](https://github.com/ericogamo/MDSFramework):
 - **Skyshield AESA FCU** & **Skyshield Leitstand (C2 Net)**
 - **Skyshield HEL Laser**, **Skyshield 35mm AHEAD CIWS**, **Skyshield Short SAM (Type C)**, **Skyshield Long SAM (Type A)**
-- **Skyshield VLS** (4x `ECCM-Hunter "SAME DAY DELIVERY"` + 4x `SkyLance LR-SAM`) + blind Passive Home-on-Jam (HoJ) response
+- **Skyshield VLS** (4x `ECCM-Hunter` + 4x `SkyLance LR-SAM`) + blind Passive Home-on-Jam (HoJ) response
 - **SeaWraith NSM** Coastal Anti-Ship Container & HLT-8x8
 
 ## Prerequisites
