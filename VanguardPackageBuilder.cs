@@ -14,6 +14,8 @@ namespace VanguardDefence
         internal const string LeitstandUnitId = "vgd_skyshield_c2";
         internal const string SeaWraithMissileId = "vgd_seawraith";
         internal const string SeaWraithContainerUnitId = "vgd_seawraith_container";
+        internal const string WaspAtMissileId = "vgd_wasp_at";
+        internal const string WaspHiveContainerUnitId = "vgd_wasp_hive_container";
         internal const string Hx3IsoCarrierUnitId = "vgd_hx3_iso_carrier";
 
         internal static ContractorPackage Build(string pluginDirectory, out string assetSummary)
@@ -41,7 +43,8 @@ namespace VanguardDefence
                     WeaponCascadeRole.ShortMedSam,
                     WeaponCascadeRole.LongRangeSam,
                     WeaponCascadeRole.AbmVls,
-                    WeaponCascadeRole.AntiShipCoastal
+                    WeaponCascadeRole.AntiShipCoastal,
+                    WeaponCascadeRole.AntiVehicleDrone
                 }
             };
 
@@ -94,11 +97,11 @@ namespace VanguardDefence
                 MaxEngagementRangeKm = 20f,
                 BlastYield = 30f,
                 ModelYawOffsetDeg = 180f,
-                CruiseSpeedMps = 960f,
-                MaxSpeedMps = 1000f,
-                MaxMach = 3.0f,
+                CruiseSpeedMps = 750f,
+                MaxSpeedMps = 800f,
+                MaxMach = 2.35f,
                 FinDeployDelaySeconds = 0.25f,
-                RearmCostPerRound = 4f,
+                RearmCostPerRound = 0.8f,
                 IconRelativePath = "icons/icon_missile_skydart.png"
             });
 
@@ -117,7 +120,7 @@ namespace VanguardDefence
                 EnableFoldingFins = true,
                 SupportsActiveToPassiveHoj = true,
                 IsAbmInterceptor = false,
-                MaxEngagementRangeKm = 75f,
+                MaxEngagementRangeKm = 62f,
                 BlastYield = 45f,
                 ModelYawOffsetDeg = 180f,
                 CruiseSpeedMps = 1120f,
@@ -125,8 +128,13 @@ namespace VanguardDefence
                 MaxMach = 3.4f,
                 LoftApexMeters = 8500f,
                 FinDeployDelaySeconds = 0.30f,
-                RearmCostPerRound = 9f,
-                IconRelativePath = "icons/icon_missile_eccm_hunter.png"
+                RearmCostPerRound = 5.0f,
+                IconRelativePath = "icons/icon_missile_eccm_hunter.png",
+                RequiresTargetEcmToTrack = true,
+                WarningAlarmAudioRelativePath = "audio/eccm_hunter_rwr_loop.wav",
+                WarningAlertAudioRelativePath = "audio/eccm_hunter_rwr_alert.wav",
+                WarningAlarmVolume = 0.85f,
+                WarningDetectionRangeMeters = 12000f
             });
 
             package.AddMissile(new CustomMissileSpec
@@ -153,7 +161,7 @@ namespace VanguardDefence
                 FinDeployDelaySeconds = 0.25f,
                 HighAltitudeInterceptMinMeters = 800f,
                 DisarmTargetWarheadOnIntercept = true,
-                RearmCostPerRound = 18f,
+                RearmCostPerRound = 9.0f,
                 IconRelativePath = "icons/icon_missile_icbm_hunter.png"
             });
 
@@ -172,7 +180,7 @@ namespace VanguardDefence
                 EnableFoldingFins = true,
                 SupportsActiveToPassiveHoj = false,
                 IsAbmInterceptor = false,
-                MaxEngagementRangeKm = 75f,
+                MaxEngagementRangeKm = 55f,
                 BlastYield = 55f,
                 ModelYawOffsetDeg = 180f,
                 CruiseSpeedMps = 1220f,
@@ -180,7 +188,7 @@ namespace VanguardDefence
                 MaxMach = 3.8f,
                 LoftApexMeters = 8500f,
                 FinDeployDelaySeconds = 0.25f,
-                RearmCostPerRound = 12f,
+                RearmCostPerRound = 5.5f,
                 IconRelativePath = "icons/icon_missile_skylance.png"
             });
 
@@ -219,11 +227,46 @@ namespace VanguardDefence
                 BoosterDropSeconds = 0f,
                 MaxEngagementRangeKm = 50f,
                 BlastYield = 125f,
-                RearmCostPerRound = 20f,
+                RearmCostPerRound = 3.0f,
                 EnableAircraftMounting = true,
                 AircraftMountCloneKeys = new[] { "AShM2", "AShM1", "CruiseMissile1", "AShM3" },
                 AircraftMountMassKg = 416f,
                 AircraftMountShortName = "SeaWraith"
+            });
+
+            package.AddMissile(new CustomMissileSpec
+            {
+                MissileId = WaspAtMissileId,
+                DisplayName = "VGD Wasp-AT",
+                GlbRelativePath = "vgd_wasp_at.glb",
+                FallbackGlbRelativePaths = System.Array.Empty<string>(),
+                FallbackMeshArchetype = "skydart",
+                BaseMissileCloneKey = "AShM2",
+                IconRelativePath = "icons/icon_missile_wasp_at.png",
+                FlightProfile = MissileFlightProfile.LoiteringTopAttack,
+                IsAntiVehicle = true,
+                ModelYawOffsetDeg = 180f,
+                ThermalHardening = 1.0f,
+                IsDecoy = false,
+                EnableFoldingFins = true,
+                FinDeployDelaySeconds = 0.25f,
+                SupportsActiveToPassiveHoj = false,
+                IsAbmInterceptor = false,
+                CruiseSpeedMps = 135f,
+                MaxSpeedMps = 170f,
+                TargetMach = 0.40f,
+                MaxMach = 0.55f,
+                LoiterCruiseAltitudeMeters = 220f,
+                TopAttackDiveRangeMeters = 850f,
+                StealthRcsOverride = 0.04f,
+                MaxEngagementRangeKm = 18f,
+                BlastYield = 13f,
+                RearmCostPerRound = 1.5f,
+                EnableAircraftMounting = false,
+                MotorLoopAudioRelativePath = "audio/wasp_drone_motor_loop.wav",
+                MotorLoopAudioVolume = 0.90f,
+                MotorLoopAudioMinDistance = 28f,
+                MotorLoopAudioMaxDistance = 1600f
             });
 
             float jamTol = VanguardConfig.AesaJamTolerance.Value;
@@ -344,6 +387,7 @@ namespace VanguardDefence
                 UnitId = "vgd_skyshield_35mm",
                 DisplayName = "Skyshield 35mm AHEAD",
                 Role = WeaponCascadeRole.CloseInGun,
+                CanEngageGroundVehicles = true,
                 BaseDefinitionCloneKey = "Emplacement1_23mm",
                 GlbRelativePath = useContainers ? "skyshield_gun_35mm_container.glb" : "skyshield_gun_35mm.glb",
                 FallbackGlbRelativePaths = new[] { "skyshield_gun_35mm.glb", "skyshield_gun_35mm_container.glb" },
@@ -472,7 +516,7 @@ namespace VanguardDefence
                 DeployedRcs = 0.22f,
                 RequiresFcuLink = true,
                 MinEngagementRangeKm = 1.5f,
-                MaxEngagementRangeKm = 65f,
+                MaxEngagementRangeKm = 55f,
                 MagazineCapacity = 8,
                 FireCooldownSeconds = 3.5f,
                 DeployDurationSeconds = 5.0f,
@@ -487,7 +531,7 @@ namespace VanguardDefence
                     SupportedBands = new[] { SensorBand.XBand, SensorBand.EoIr },
                     JamTolerance = jamTol,
                     EoIrEmergencyRangeKm = 4.5f,
-                    DetectionRangeKm = 65f
+                    DetectionRangeKm = 55f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
@@ -525,7 +569,7 @@ namespace VanguardDefence
                 DeployedRcs = 0.24f,
                 RequiresFcuLink = true,
                 MinEngagementRangeKm = 2.0f,
-                MaxEngagementRangeKm = 75f,
+                MaxEngagementRangeKm = 62f,
                 MagazineCapacity = 8,
                 PrimaryMagazineCapacity = 4,
                 SecondaryMagazineCapacity = 4,
@@ -539,7 +583,7 @@ namespace VanguardDefence
                     JamTolerance = jamTol,
                     EnableHomeOnJamTriangulation = true,
                     EoIrEmergencyRangeKm = 3.5f,
-                    DetectionRangeKm = 75f
+                    DetectionRangeKm = 62f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
@@ -657,6 +701,57 @@ namespace VanguardDefence
                 }
             });
 
+            // 8B. Wasp Hive-80 20ft ISO 80-Drone Elevating-Roof Container (Anti-Vehicle Loitering Swarm)
+            package.AddUnit(new ModularUnitSpec
+            {
+                UnitId = WaspHiveContainerUnitId,
+                DisplayName = "Wasp Hive-80 Container",
+                Role = WeaponCascadeRole.AntiVehicleDrone,
+                CanEngageGroundVehicles = true,
+                BaseDefinitionCloneKey = "Emplacement1_ATGM",
+                GlbRelativePath = "vgd_wasp_hive_container.glb",
+                DestroyedGlbRelativePath = "vgd_wasp_hive_container_wreck.glb",
+                DebrisKitGlbRelativePath = "skyshield_debris_kit.glb",
+                DestroyAnimationDurationSeconds = 2.5f,
+                DestructionDebrisCount = 6,
+                FallbackMeshArchetype = "container",
+                DecalRelativePath = "branding/vanguard_wasp_decal.png",
+                PrimaryMissileId = WaspAtMissileId,
+                PrimaryMagazineCapacity = 80,
+                MagazineCapacity = 80,
+                FireCooldownSeconds = 0.45f,
+                LaunchAlongSocketForward = true,
+                VerticalLaunch = false,
+                RequiresFcuLink = false,
+                StowedRcs = 0.06f,
+                DeployedRcs = 0.30f,
+                MinEngagementRangeKm = 0.4f,
+                MaxEngagementRangeKm = 18f,
+                DeployDurationSeconds = 5.0f,
+                ModelYawOffsetDeg = 0f,
+                FcuLinkRadiusKm = 35f,
+                SensorProfile = new EccmSensorProfile
+                {
+                    IsFireControlUnit = false,
+                    SupportedBands = new[] { SensorBand.EoIr, SensorBand.PassiveElint },
+                    JamTolerance = 0.82f,
+                    EoIrEmergencyRangeKm = 12f,
+                    DetectionRangeKm = 18f
+                },
+                Logistics = new DeploymentLogisticsSpec
+                {
+                    RequiredTechTier = 2,
+                    CreditCost = 480f,
+                    CapCategory = "Ground",
+                    CapWeight = 1,
+                    EngineerBuildSeconds = 20f,
+                    SupportsTarantulaSlingKit = true,
+                    SlingKitMassKg = 4200f,
+                    SupportsAircraftAirdrop = true,
+                    AirdropAltitudeMeters = 260f
+                }
+            });
+
             // 9. MAN HX3 8x8 ISO Container Carrier (Unarmed Logistics Flatbed Hauler)
             package.AddUnit(new ModularUnitSpec
             {
@@ -762,6 +857,7 @@ namespace VanguardDefence
                 else if (unit.UnitId != "vgd_skyshield_35mm" &&
                          unit.UnitId != LeitstandUnitId &&
                          unit.UnitId != SeaWraithContainerUnitId &&
+                         unit.UnitId != WaspHiveContainerUnitId &&
                          unit.UnitId != Hx3IsoCarrierUnitId)
                 {
                     unit.SensorProfile.JamTolerance = jamTol;
