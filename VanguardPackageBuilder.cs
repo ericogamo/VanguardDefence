@@ -14,7 +14,6 @@ namespace VanguardDefence
         internal const string LeitstandUnitId = "vgd_skyshield_c2";
         internal const string SeaWraithMissileId = "vgd_seawraith";
         internal const string SeaWraithContainerUnitId = "vgd_seawraith_container";
-        internal const string SeaWraithHemttUnitId = "vgd_seawraith_hemtt";
         internal const string Hx3IsoCarrierUnitId = "vgd_hx3_iso_carrier";
 
         internal static ContractorPackage Build(string pluginDirectory, out string assetSummary)
@@ -658,60 +657,7 @@ namespace VanguardDefence
                 }
             });
 
-            // 9. SeaWraith HLT-8x8 NSM Coastal Launcher (Drivable Self-Propelled CDS)
-            package.AddUnit(new ModularUnitSpec
-            {
-                UnitId = SeaWraithHemttUnitId,
-                DisplayName = "SeaWraith HLT-8x8 NSM",
-                Role = WeaponCascadeRole.AntiShipCoastal,
-                BaseDefinitionCloneKey = "HLT-L",
-                GlbRelativePath = "vgd_seawraith_hemtt.glb",
-                DestroyedGlbRelativePath = "vgd_seawraith_hemtt_wreck.glb",
-                DebrisKitGlbRelativePath = "skyshield_debris_kit.glb",
-                DestroyAnimationDurationSeconds = 2.5f,
-                DestructionDebrisCount = 6,
-                FallbackMeshArchetype = "container",
-                DecalRelativePath = "branding/vanguard_vehicle_side_decal.png",
-                PrimaryMissileId = SeaWraithMissileId,
-                PrimaryMagazineCapacity = 4,
-                MagazineCapacity = 4,
-                FireCooldownSeconds = 3.2f,
-                LaunchAlongSocketForward = true,
-                VerticalLaunch = false,
-                IsMobileVehicle = true,
-                WheelRadiusMeters = 0.670f,
-                RequiresFcuLink = false,
-                StowedRcs = 0.14f,
-                DeployedRcs = 0.45f,
-                MinEngagementRangeKm = 2.5f,
-                MaxEngagementRangeKm = 52f,
-                DeployDurationSeconds = 5.0f,
-                ModelYawOffsetDeg = 0f,
-                FcuLinkRadiusKm = 45f,
-                SensorProfile = new EccmSensorProfile
-                {
-                    IsFireControlUnit = false,
-                    SupportedBands = new[] { SensorBand.PassiveElint, SensorBand.EoIr },
-                    JamTolerance = 0.88f,
-                    EnableHomeOnJamTriangulation = true,
-                    EoIrEmergencyRangeKm = 18f,
-                    DetectionRangeKm = 52f
-                },
-                Logistics = new DeploymentLogisticsSpec
-                {
-                    RequiredTechTier = 2,
-                    CreditCost = 720f,
-                    CapCategory = "Ground",
-                    CapWeight = 1,
-                    EngineerBuildSeconds = 24f,
-                    SupportsTarantulaSlingKit = false,
-                    SlingKitMassKg = 0f,
-                    SupportsAircraftAirdrop = false,
-                    AirdropAltitudeMeters = 0f
-                }
-            });
-
-            // 10. MAN HX3 8x8 ISO Container Carrier (Unarmed Logistics Flatbed Hauler)
+            // 9. MAN HX3 8x8 ISO Container Carrier (Unarmed Logistics Flatbed Hauler)
             package.AddUnit(new ModularUnitSpec
             {
                 UnitId = Hx3IsoCarrierUnitId,
@@ -748,7 +694,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 1,
-                    CreditCost = 140f,
+                    CreditCost = 0.45f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 12f,
@@ -816,7 +762,6 @@ namespace VanguardDefence
                 else if (unit.UnitId != "vgd_skyshield_35mm" &&
                          unit.UnitId != LeitstandUnitId &&
                          unit.UnitId != SeaWraithContainerUnitId &&
-                         unit.UnitId != SeaWraithHemttUnitId &&
                          unit.UnitId != Hx3IsoCarrierUnitId)
                 {
                     unit.SensorProfile.JamTolerance = jamTol;
