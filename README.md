@@ -5,7 +5,7 @@ Contractor pack mod for **Nuclear Option** built on [`MDSFramework`](https://git
 - **Skyshield AESA FCU** & **Skyshield Leitstand (C2 Net)**
 - **Skyshield HEL Laser**, **Skyshield 35mm AHEAD CIWS**, **Skyshield Short SAM (Type C)**, **Skyshield Long SAM (Type A)**
 - **Skyshield VLS** (4x `ECCM-Hunter` + 4x `SkyLance LR-SAM`) + blind Passive Home-on-Jam (HoJ) response
-- **SeaWraith NSM** 6-Missile Elevating-Roof Container & HLT-8x8
+- **SeaWraith** unified RAM stealth anti-ship cruise missile (jet air-drop glide to 10 ft sea-skim & 6-cell elevating-roof container / HLT-8x8)
 - **MAN HX3 8x8 ISO Container Carrier** (drivable logistics hauler for 20ft ISO weapon modules)
 
 ## Prerequisites

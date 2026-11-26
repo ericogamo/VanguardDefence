@@ -12,8 +12,7 @@ namespace VanguardDefence
         internal const string IcbmHunterMissileId = "vgd_icbm_hunter";
         internal const string SkyLanceLrSamMissileId = "vgd_skylance_lrsam";
         internal const string LeitstandUnitId = "vgd_skyshield_c2";
-        internal const string SeaWraithAirMissileId = "vgd_seawraith_air";
-        internal const string SeaWraithSurfMissileId = "vgd_seawraith_surf";
+        internal const string SeaWraithMissileId = "vgd_seawraith";
         internal const string SeaWraithContainerUnitId = "vgd_seawraith_container";
         internal const string SeaWraithHemttUnitId = "vgd_seawraith_hemtt";
         internal const string Hx3IsoCarrierUnitId = "vgd_hx3_iso_carrier";
@@ -188,10 +187,10 @@ namespace VanguardDefence
 
             package.AddMissile(new CustomMissileSpec
             {
-                MissileId = SeaWraithAirMissileId,
-                DisplayName = "VGD SeaWraith (JSM)",
-                GlbRelativePath = "vgd_seawraith_jsm_air.glb",
-                FallbackGlbRelativePaths = new[] { "vgd_seawraith_nsm_surf.glb" },
+                MissileId = SeaWraithMissileId,
+                DisplayName = "VGD SeaWraith",
+                GlbRelativePath = "vgd_seawraith.glb",
+                FallbackGlbRelativePaths = System.Array.Empty<string>(),
                 FallbackMeshArchetype = "eccm_hunter",
                 BaseMissileCloneKey = "AShM2",
                 DecalRelativePath = "branding/vanguard_seawraith_decal.png",
@@ -202,12 +201,12 @@ namespace VanguardDefence
                 ThermalHardening = 1.15f,
                 IsDecoy = false,
                 EnableFoldingFins = true,
-                FinDeployDelaySeconds = 0.25f,
+                FinDeployDelaySeconds = 0.30f,
                 SupportsActiveToPassiveHoj = true,
                 IsAbmInterceptor = false,
                 TargetMach = 0.90f,
                 CruiseSpeedMps = 306f,
-                SeaSkimAltitudeMeters = 4.5f,
+                SeaSkimAltitudeMeters = 3.05f,
                 StealthRcsOverride = 0.09f,
                 SeekerEccmJamTolerance = 0.72f,
                 HasActiveJammer = true,
@@ -219,53 +218,13 @@ namespace VanguardDefence
                 EvasiveJinkAmplitudeMeters = 65f,
                 EvasiveJinkPeriodSeconds = 3.0f,
                 BoosterDropSeconds = 0f,
-                MaxEngagementRangeKm = 44f,
-                BlastYield = 115f,
+                MaxEngagementRangeKm = 50f,
+                BlastYield = 125f,
                 RearmCostPerRound = 20f,
                 EnableAircraftMounting = true,
                 AircraftMountCloneKeys = new[] { "AShM2", "AShM1", "CruiseMissile1", "AShM3" },
                 AircraftMountMassKg = 416f,
-                AircraftMountShortName = "SeaWraith JSM"
-            });
-
-            package.AddMissile(new CustomMissileSpec
-            {
-                MissileId = SeaWraithSurfMissileId,
-                DisplayName = "VGD SeaWraith (NSM)",
-                GlbRelativePath = "vgd_seawraith_nsm_surf.glb",
-                FallbackGlbRelativePaths = new[] { "vgd_seawraith_jsm_air.glb" },
-                FallbackMeshArchetype = "eccm_hunter",
-                BaseMissileCloneKey = "AShM2",
-                DecalRelativePath = "branding/vanguard_seawraith_decal.png",
-                IconRelativePath = "icons/icon_missile_seawraith.png",
-                FlightProfile = MissileFlightProfile.SeaSkimmingEvasive,
-                IsAntiShip = true,
-                ModelYawOffsetDeg = 180f,
-                ThermalHardening = 1.15f,
-                IsDecoy = false,
-                EnableFoldingFins = true,
-                FinDeployDelaySeconds = 0.35f,
-                SupportsActiveToPassiveHoj = true,
-                IsAbmInterceptor = false,
-                TargetMach = 0.90f,
-                CruiseSpeedMps = 306f,
-                SeaSkimAltitudeMeters = 4.5f,
-                StealthRcsOverride = 0.09f,
-                SeekerEccmJamTolerance = 0.72f,
-                HasActiveJammer = true,
-                ActiveJammerIntensity = 0.22f,
-                ActiveJammerRangeKm = 9.5f,
-                ActiveJammerPulseIntervalSeconds = 1.35f,
-                EnableTerminalEvasiveJink = true,
-                EvasiveJinkStartRangeKm = 4.0f,
-                EvasiveJinkAmplitudeMeters = 65f,
-                EvasiveJinkPeriodSeconds = 3.0f,
-                BoosterDropSeconds = 2.4f,
-                MaxEngagementRangeKm = 50f,
-                BlastYield = 125f,
-                RearmCostPerRound = 22f,
-                EnableAircraftMounting = false,
-                AircraftMountShortName = "SeaWraith NSM"
+                AircraftMountShortName = "SeaWraith"
             });
 
             float jamTol = VanguardConfig.AesaJamTolerance.Value;
@@ -648,11 +607,11 @@ namespace VanguardDefence
                 }
             });
 
-            // 8. SeaWraith 20ft ISO 6-Missile Elevating-Roof NSM Container (Autonomous ASuW, Airdrop + Flatbed + Build)
+            // 8. SeaWraith 20ft ISO 6-Missile Elevating-Roof Container (Autonomous ASuW, Airdrop + Flatbed + Build)
             package.AddUnit(new ModularUnitSpec
             {
                 UnitId = SeaWraithContainerUnitId,
-                DisplayName = "SeaWraith NSM Container",
+                DisplayName = "SeaWraith Container",
                 Role = WeaponCascadeRole.AntiShipCoastal,
                 BaseDefinitionCloneKey = "Emplacement1_ATGM",
                 GlbRelativePath = "vgd_seawraith_container.glb",
@@ -662,7 +621,7 @@ namespace VanguardDefence
                 DestructionDebrisCount = 6,
                 FallbackMeshArchetype = "container",
                 DecalRelativePath = "branding/vanguard_seawraith_decal.png",
-                PrimaryMissileId = SeaWraithSurfMissileId,
+                PrimaryMissileId = SeaWraithMissileId,
                 PrimaryMagazineCapacity = 6,
                 MagazineCapacity = 6,
                 FireCooldownSeconds = 3.2f,
@@ -713,7 +672,7 @@ namespace VanguardDefence
                 DestructionDebrisCount = 6,
                 FallbackMeshArchetype = "container",
                 DecalRelativePath = "branding/vanguard_vehicle_side_decal.png",
-                PrimaryMissileId = SeaWraithSurfMissileId,
+                PrimaryMissileId = SeaWraithMissileId,
                 PrimaryMagazineCapacity = 4,
                 MagazineCapacity = 4,
                 FireCooldownSeconds = 3.2f,
