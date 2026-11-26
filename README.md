@@ -12,12 +12,23 @@ Contractor pack mod for **Nuclear Option** built on [`MDSFramework`](https://git
 - **Nuclear Option** with **BepInEx 5**
 - [`MDSFramework`](https://github.com/ericogamo/MDSFramework) installed in `BepInEx\plugins\MDSFramework`
 
-## Quick Install / Update (Prebuilt DLL + Assets included)
+## Installation
+### Via NOMM (Nuclear Option Mod Manager)
+Install `VanguardDefence` directly inside NOMM (auto-updates via NOMNOM; requires `MDSFramework`).
+
+### Manual Release ZIP
+1. Download `VanguardDefence-v0.1.1.zip` from [Releases](https://github.com/ericogamo/VanguardDefence/releases/latest).
+2. Extract its contents (`VanguardDefence.dll` + `Assets/`) directly into `Nuclear Option\BepInEx\plugins\VanguardDefence\`.
+
+### From Git Clone
 ```powershell
 git clone https://github.com/ericogamo/VanguardDefence.git
 cd VanguardDefence
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
+
+## Multiplayer & Authority
+All units, missiles, sensor networks, and engagement behaviors run through `MDSFramework` under host/server authority.
 
 ## Companion Mods
 - [`MDSFramework`](https://github.com/ericogamo/MDSFramework)
@@ -27,3 +38,8 @@ powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```powershell
 dotnet build VanguardDefence.csproj -c Release -p:GameDir="D:\SteamLibrary\steamapps\common\Nuclear Option"
 ```
+
+## License, Assets & AI Disclosure
+- **Code License:** [MIT License](LICENSE)
+- **3D Models, Decals, Icons & Audio:** All bundled `.glb` models, `branding/` decals & logos, `icons/`, and `audio/skyshield_gun_35mm_shot.wav` are original project/procedural assets (`CC0 1.0`). No ripped game assets are redistributed.
+- **AI Assistance:** Created with substantial agentic/generative AI assistance (`isAiAssisted: True`).
