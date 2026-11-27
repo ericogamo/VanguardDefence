@@ -17,7 +17,7 @@ Contractor pack mod for **Nuclear Option** built on [`MDSFramework`](https://git
 Install `VanguardDefence` directly inside NOMM (auto-updates via NOMNOM; requires `MDSFramework`).
 
 ### Manual Release ZIP
-1. Download `VanguardDefence-v0.1.3.zip` from [Releases](https://github.com/ericogamo/VanguardDefence/releases/latest).
+1. Download `VanguardDefence-v0.1.4.zip` from [Releases](https://github.com/ericogamo/VanguardDefence/releases/latest).
 2. Extract its contents (`VanguardDefence.dll` + `Assets/`) directly into `Nuclear Option\BepInEx\plugins\VanguardDefence\`.
 
 ### From Git Clone
