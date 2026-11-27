@@ -94,7 +94,7 @@ namespace VanguardDefence
                 EnableFoldingFins = true,
                 SupportsActiveToPassiveHoj = false,
                 IsAbmInterceptor = false,
-                MaxEngagementRangeKm = 20f,
+                MaxEngagementRangeKm = 14f,
                 BlastYield = 30f,
                 ModelYawOffsetDeg = 180f,
                 CruiseSpeedMps = 750f,
@@ -120,13 +120,13 @@ namespace VanguardDefence
                 EnableFoldingFins = true,
                 SupportsActiveToPassiveHoj = true,
                 IsAbmInterceptor = false,
-                MaxEngagementRangeKm = 62f,
+                MaxEngagementRangeKm = 50f,
                 BlastYield = 45f,
                 ModelYawOffsetDeg = 180f,
                 CruiseSpeedMps = 1120f,
                 MaxSpeedMps = 1150f,
                 MaxMach = 3.4f,
-                LoftApexMeters = 8500f,
+                LoftApexMeters = 6500f,
                 FinDeployDelaySeconds = 0.30f,
                 RearmCostPerRound = 5.0f,
                 IconRelativePath = "icons/icon_missile_eccm_hunter.png",
@@ -180,13 +180,13 @@ namespace VanguardDefence
                 EnableFoldingFins = true,
                 SupportsActiveToPassiveHoj = false,
                 IsAbmInterceptor = false,
-                MaxEngagementRangeKm = 55f,
+                MaxEngagementRangeKm = 42f,
                 BlastYield = 55f,
                 ModelYawOffsetDeg = 180f,
                 CruiseSpeedMps = 1220f,
                 MaxSpeedMps = 1260f,
                 MaxMach = 3.8f,
-                LoftApexMeters = 8500f,
+                LoftApexMeters = 5500f,
                 FinDeployDelaySeconds = 0.25f,
                 RearmCostPerRound = 5.5f,
                 IconRelativePath = "icons/icon_missile_skylance.png"
@@ -318,7 +318,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 2,
-                    CreditCost = 280f,
+                    CreditCost = 220f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 18f,
@@ -370,7 +370,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 2,
-                    CreditCost = 380f,
+                    CreditCost = 300f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 20f,
@@ -434,7 +434,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 1,
-                    CreditCost = 160f,
+                    CreditCost = 130f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 14f,
@@ -465,7 +465,7 @@ namespace VanguardDefence
                 DeployedRcs = 0.18f,
                 RequiresFcuLink = true,
                 MinEngagementRangeKm = 0.4f,
-                MaxEngagementRangeKm = 18f,
+                MaxEngagementRangeKm = 14f,
                 MagazineCapacity = 8,
                 FireCooldownSeconds = 2.2f,
                 DeployDurationSeconds = 5.0f,
@@ -480,12 +480,12 @@ namespace VanguardDefence
                     SupportedBands = new[] { SensorBand.EoIr, SensorBand.XBand },
                     JamTolerance = jamTol,
                     EoIrEmergencyRangeKm = 4.5f,
-                    DetectionRangeKm = 18f
+                    DetectionRangeKm = 14f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 2,
-                    CreditCost = 280f,
+                    CreditCost = 210f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 16f,
@@ -516,7 +516,7 @@ namespace VanguardDefence
                 DeployedRcs = 0.22f,
                 RequiresFcuLink = true,
                 MinEngagementRangeKm = 1.5f,
-                MaxEngagementRangeKm = 55f,
+                MaxEngagementRangeKm = 42f,
                 MagazineCapacity = 8,
                 FireCooldownSeconds = 3.5f,
                 DeployDurationSeconds = 5.0f,
@@ -531,12 +531,12 @@ namespace VanguardDefence
                     SupportedBands = new[] { SensorBand.XBand, SensorBand.EoIr },
                     JamTolerance = jamTol,
                     EoIrEmergencyRangeKm = 4.5f,
-                    DetectionRangeKm = 55f
+                    DetectionRangeKm = 42f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 3,
-                    CreditCost = 600f,
+                    CreditCost = 450f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 22f,
@@ -569,7 +569,7 @@ namespace VanguardDefence
                 DeployedRcs = 0.24f,
                 RequiresFcuLink = true,
                 MinEngagementRangeKm = 2.0f,
-                MaxEngagementRangeKm = 62f,
+                MaxEngagementRangeKm = 50f,
                 MagazineCapacity = 8,
                 PrimaryMagazineCapacity = 4,
                 SecondaryMagazineCapacity = 4,
@@ -583,12 +583,12 @@ namespace VanguardDefence
                     JamTolerance = jamTol,
                     EnableHomeOnJamTriangulation = true,
                     EoIrEmergencyRangeKm = 3.5f,
-                    DetectionRangeKm = 62f
+                    DetectionRangeKm = 50f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 3,
-                    CreditCost = 900f,
+                    CreditCost = 680f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 26f,
@@ -639,7 +639,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 2,
-                    CreditCost = 420f,
+                    CreditCost = 330f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 22f,
@@ -690,7 +690,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 2,
-                    CreditCost = 580f,
+                    CreditCost = 460f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 22f,
@@ -741,7 +741,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 2,
-                    CreditCost = 480f,
+                    CreditCost = 390f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 20f,
