@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using MDSFramework.Api;
+using MDSFramework.Networking;
 
 namespace VanguardDefence
 {
@@ -11,6 +14,7 @@ namespace VanguardDefence
         internal const string EccmHunterMissileId = "vgd_eccm_hunter";
         internal const string IcbmHunterMissileId = "vgd_icbm_hunter";
         internal const string SkyLanceLrSamMissileId = "vgd_skylance_lrsam";
+        internal const string SkyshieldVlsUnitId = "vgd_skyshield_vls";
         internal const string LeitstandUnitId = "vgd_skyshield_c2";
         internal const string SeaWraithMissileId = "vgd_seawraith";
         internal const string SeaWraithContainerUnitId = "vgd_seawraith_container";
@@ -120,7 +124,7 @@ namespace VanguardDefence
                 EnableFoldingFins = true,
                 SupportsActiveToPassiveHoj = true,
                 IsAbmInterceptor = false,
-                MaxEngagementRangeKm = 50f,
+                MaxEngagementRangeKm = 85f,
                 BlastYield = 45f,
                 ModelYawOffsetDeg = 180f,
                 CruiseSpeedMps = 1120f,
@@ -137,6 +141,8 @@ namespace VanguardDefence
                 WarningDetectionRangeMeters = 12000f
             });
 
+            // Reserved cross-mod exo-atmospheric ABM interceptor (kept registered for MDS/cross-mod compatibility;
+            // do NOT overwrite vgd_skyshield_vls's 4x ECCM-Hunter + 4x SkyLance cells with this missile).
             package.AddMissile(new CustomMissileSpec
             {
                 MissileId = IcbmHunterMissileId,
@@ -227,7 +233,7 @@ namespace VanguardDefence
                 BoosterDropSeconds = 0f,
                 MaxEngagementRangeKm = 50f,
                 BlastYield = 125f,
-                RearmCostPerRound = 3.0f,
+                RearmCostPerRound = 6.5f,
                 EnableAircraftMounting = true,
                 AircraftMountCloneKeys = new[] { "AShM2", "AShM1", "CruiseMissile1", "AShM3" },
                 AircraftMountMassKg = 416f,
@@ -547,10 +553,10 @@ namespace VanguardDefence
                 }
             });
 
-            // 6. Skyshield 8-Cell VLS Container (4x ECCM-Hunter + 4x SkyLance LR-SAM)
+            // 6. Skyshield 8-Cell VLS Container (4x ECCM-Hunter + 4x SkyLance LR-SAM; retains AbmVls cascade role)
             package.AddUnit(new ModularUnitSpec
             {
-                UnitId = "vgd_skyshield_vls",
+                UnitId = SkyshieldVlsUnitId,
                 DisplayName = "Skyshield VLS (4x ECCM + 4x LR-SAM)",
                 Role = WeaponCascadeRole.AbmVls,
                 BaseDefinitionCloneKey = "Emplacement1_MANPADS",
@@ -569,7 +575,7 @@ namespace VanguardDefence
                 DeployedRcs = 0.24f,
                 RequiresFcuLink = true,
                 MinEngagementRangeKm = 2.0f,
-                MaxEngagementRangeKm = 50f,
+                MaxEngagementRangeKm = 85f,
                 MagazineCapacity = 8,
                 PrimaryMagazineCapacity = 4,
                 SecondaryMagazineCapacity = 4,
@@ -583,12 +589,12 @@ namespace VanguardDefence
                     JamTolerance = jamTol,
                     EnableHomeOnJamTriangulation = true,
                     EoIrEmergencyRangeKm = 3.5f,
-                    DetectionRangeKm = 50f
+                    DetectionRangeKm = 85f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 3,
-                    CreditCost = 680f,
+                    CreditCost = 540f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 26f,
@@ -684,8 +690,8 @@ namespace VanguardDefence
                     SupportedBands = new[] { SensorBand.PassiveElint, SensorBand.EoIr },
                     JamTolerance = 0.88f,
                     EnableHomeOnJamTriangulation = true,
-                    EoIrEmergencyRangeKm = 18f,
-                    DetectionRangeKm = 52f
+                    EoIrEmergencyRangeKm = 6.0f,
+                    DetectionRangeKm = 40f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
@@ -717,9 +723,9 @@ namespace VanguardDefence
                 FallbackMeshArchetype = "container",
                 DecalRelativePath = "branding/vanguard_wasp_decal.png",
                 PrimaryMissileId = WaspAtMissileId,
-                PrimaryMagazineCapacity = 80,
-                MagazineCapacity = 80,
-                FireCooldownSeconds = 0.45f,
+                PrimaryMagazineCapacity = 24,
+                MagazineCapacity = 24,
+                FireCooldownSeconds = 2.0f,
                 LaunchAlongSocketForward = true,
                 VerticalLaunch = false,
                 RequiresFcuLink = false,
@@ -735,15 +741,15 @@ namespace VanguardDefence
                     IsFireControlUnit = false,
                     SupportedBands = new[] { SensorBand.EoIr, SensorBand.PassiveElint },
                     JamTolerance = 0.82f,
-                    EoIrEmergencyRangeKm = 12f,
-                    DetectionRangeKm = 18f
+                    EoIrEmergencyRangeKm = 4.5f,
+                    DetectionRangeKm = 12f
                 },
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 2,
-                    CreditCost = 390f,
+                    CreditCost = 460f,
                     CapCategory = "Ground",
-                    CapWeight = 1,
+                    CapWeight = 2,
                     EngineerBuildSeconds = 20f,
                     SupportsTarantulaSlingKit = true,
                     SlingKitMassKg = 4200f,
@@ -789,7 +795,7 @@ namespace VanguardDefence
                 Logistics = new DeploymentLogisticsSpec
                 {
                     RequiredTechTier = 1,
-                    CreditCost = 0.45f,
+                    CreditCost = 45f,
                     CapCategory = "Ground",
                     CapWeight = 1,
                     EngineerBuildSeconds = 12f,
@@ -828,7 +834,10 @@ namespace VanguardDefence
                 return;
             }
 
-            package.DefaultFaction = VanguardConfig.ParseConfiguredFaction();
+            if (CanMutateDefaultFaction())
+            {
+                package.DefaultFaction = VanguardConfig.ParseConfiguredFaction();
+            }
 
             SmartEngagementProfile wta = package.DefaultWtaProfile;
             if (wta != null)
@@ -838,13 +847,41 @@ namespace VanguardDefence
                 wta.AutoPopUpRangeKm = VanguardConfig.AutoPopUpRangeKm.Value;
             }
 
+            bool useContainers = VanguardConfig.UseAnimatedIsoContainers.Value;
             float jamTol = VanguardConfig.AesaJamTolerance.Value;
             bool twoFcuBlink = VanguardConfig.EnableTwoFcuBlinking.Value;
 
             for (int i = 0; i < package.Units.Count; i++)
             {
                 ModularUnitSpec unit = package.Units[i];
-                if (unit?.SensorProfile == null)
+                if (unit == null)
+                {
+                    continue;
+                }
+
+                switch (unit.UnitId)
+                {
+                    case "vgd_skyshield_fcu":
+                        unit.GlbRelativePath = useContainers ? "skyshield_radar_fcu_container.glb" : "skyshield_radar_fcu.glb";
+                        break;
+                    case "vgd_skyshield_hel":
+                        unit.GlbRelativePath = useContainers ? "skyshield_hel_container.glb" : "skyshield_hel.glb";
+                        break;
+                    case "vgd_skyshield_35mm":
+                        unit.GlbRelativePath = useContainers ? "skyshield_gun_35mm_container.glb" : "skyshield_gun_35mm.glb";
+                        break;
+                    case "vgd_skyshield_sam_short":
+                        unit.GlbRelativePath = useContainers ? "skyshield_sam_short_c_container.glb" : "skyshield_sam_short_c.glb";
+                        break;
+                    case "vgd_skyshield_sam_long":
+                        unit.GlbRelativePath = useContainers ? "skyshield_sam_long_a_container.glb" : "skyshield_sam_long_a.glb";
+                        break;
+                    case LeitstandUnitId:
+                        unit.GlbRelativePath = useContainers ? "skyshield_leitstand_container.glb" : "skyshield_leitstand.glb";
+                        break;
+                }
+
+                if (unit.SensorProfile == null)
                 {
                     continue;
                 }
@@ -862,6 +899,92 @@ namespace VanguardDefence
                 {
                     unit.SensorProfile.JamTolerance = jamTol;
                 }
+            }
+
+            RefreshLiveSensorProfiles(package);
+        }
+
+        private static bool CanMutateDefaultFaction()
+        {
+            if (MdsNetworkSync.HostHasMds)
+            {
+                return false;
+            }
+
+            try
+            {
+                PropertyInfo? pureClientProp = typeof(MdsNetworkSync).GetProperty(
+                    "IsPureClient",
+                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+                if (pureClientProp != null && pureClientProp.GetValue(null) is bool isPureClient && isPureClient)
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                // HostHasMds already checked above.
+            }
+
+            return true;
+        }
+
+        private static void RefreshLiveSensorProfiles(ContractorPackage package)
+        {
+            try
+            {
+                Assembly mdsAsm = typeof(ContractorPackage).Assembly;
+                Type? mgrType = mdsAsm.GetType("MDSFramework.Sensors.SensorNetworkManager");
+                if (mgrType == null)
+                {
+                    return;
+                }
+
+                PropertyInfo? instanceProp = mgrType.GetProperty(
+                    "Instance",
+                    BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+                object? mgrInstance = instanceProp?.GetValue(null);
+                if (mgrInstance == null)
+                {
+                    return;
+                }
+
+                PropertyInfo? allSitesProp = mgrType.GetProperty(
+                    "AllSites",
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                if (allSitesProp?.GetValue(mgrInstance) is System.Collections.IEnumerable sites)
+                {
+                    Type? siteType = mdsAsm.GetType("MDSFramework.Sensors.ModularSiteBehavior");
+                    FieldInfo? pkgField = siteType?.GetField(
+                        "Package",
+                        BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                    MethodInfo? applySensorMethod = siteType?.GetMethod(
+                        "ApplyNativeSensorProfile",
+                        BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+
+                    foreach (object? site in sites)
+                    {
+                        if (site == null)
+                        {
+                            continue;
+                        }
+
+                        object? sitePkg = pkgField?.GetValue(site);
+                        if (ReferenceEquals(sitePkg, package))
+                        {
+                            applySensorMethod?.Invoke(site, null);
+                        }
+                    }
+                }
+
+                MethodInfo? refreshMethod = mgrType.GetMethod(
+                    "RefreshLinksAndBlinking",
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+                refreshMethod?.Invoke(mgrInstance, new object[] { true });
+            }
+            catch
+            {
+                // Ignore when MDS runtime or scene sensor manager is inactive.
             }
         }
     }

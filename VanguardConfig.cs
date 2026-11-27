@@ -81,6 +81,7 @@ namespace VanguardDefence
                 "Optional custom directory override containing Skyshield .glb files and branding/ decals.");
 
             DefaultFaction.SettingChanged += OnLiveConfigChanged;
+            UseAnimatedIsoContainers.SettingChanged += OnLiveConfigChanged;
             PreferLaserBeforeMissiles.SettingChanged += OnLiveConfigChanged;
             HelLaserDwellSeconds.SettingChanged += OnLiveConfigChanged;
             AesaJamTolerance.SettingChanged += OnLiveConfigChanged;
